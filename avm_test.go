@@ -7,25 +7,20 @@ import (
 
 	terraform_module_test_helper "github.com/Azure/terraform-module-test-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
-	"github.com/stretchr/testify/require"
 )
 
-func TestExamples(t *testing.T) {
-	t.Parallel()
+func TestExample(t *testing.T) {
 	modulePath := os.Getenv("AVM_MOD_PATH")
 	if modulePath == "" {
-		t.Skip("Cannot read AVM_MOD_PATH, you must set AVM_MOD_PATH to the avm module that you'd like to test. Skip examples test.")
+		t.Fatalf("Cannot read AVM_MOD_PATH, you must set AVM_MOD_PATH to the avm module that you'd like to test.")
 	}
-	files, err := os.ReadDir(filepath.Join(modulePath, "examples"))
-	require.NoError(t, err)
-
-	for _, file := range files {
-		if file.IsDir() {
-			exampleName := file.Name()
-			t.Run(exampleName, func(t *testing.T) {
-				t.Parallel()
-				terraform_module_test_helper.RunE2ETest(t, modulePath, filepath.Join("examples", exampleName), terraform.Options{}, nil)
-			})
-		}
+	example := os.Getenv("AVM_EXAMPLE")
+	if modulePath == "" {
+		t.Fatalf("Cannot read AVM_EXAMPLE, you must set AVM_EXAMPLE to the example name that you'd like to test.")
 	}
+	dir := filepath.Join(modulePath, "examples", example)
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		t.Fatalf("Directory %s does not exist", dir)
+	}
+	terraform_module_test_helper.RunE2ETest(t, modulePath, filepath.Join("examples", example), terraform.Options{}, nil)
 }
