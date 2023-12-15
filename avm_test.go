@@ -22,5 +22,7 @@ func TestExample(t *testing.T) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		t.Fatalf("Directory %s does not exist", dir)
 	}
-	terraform_module_test_helper.RunE2ETest(t, modulePath, filepath.Join("examples", example), terraform.Options{}, nil)
+	t.Run(example, func(t *testing.T) {
+		terraform_module_test_helper.RunE2ETest(t, modulePath, filepath.Join("examples", example), terraform.Options{}, nil)
+	})
 }
