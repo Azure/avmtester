@@ -22,6 +22,18 @@ func TestExample(t *testing.T) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		t.Fatalf("Directory %s does not exist", dir)
 	}
+	// Check whether there is any *.tf file in the directory
+	tfFiles, err := filepath.Glob(filepath.Join(dir, "*.tf"))
+	if err != nil {
+		t.Fatalf("Error while reading files in %s: %s", dir, err)
+	}
+	tfJsonFiles, err := filepath.Glob(filepath.Join(dir, "*.tf.json"))
+	if err != nil {
+		t.Fatalf("Error while reading files in %s: %s", dir, err)
+	}
+	if len(tfJsonFiles)+len(tfFiles) == 0 {
+		t.Skipf("No Terraform files found in the directory, skip empty directory %s", example)
+	}
 	t.Run(example, func(t *testing.T) {
 		terraform_module_test_helper.RunE2ETest(t, modulePath, filepath.Join("examples", example), terraform.Options{}, nil)
 	})
