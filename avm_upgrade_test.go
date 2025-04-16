@@ -85,8 +85,8 @@ func TestUpgradeExample(t *testing.T) {
             modulePath,
             opts,
             currentMajorVer,
-						true,
-						true,
+            true, // allow testing on v0 modules
+            true, // allow logs to be streamed rather than buffered in memory
         )
     })
 }
