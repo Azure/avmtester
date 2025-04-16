@@ -1,6 +1,6 @@
 # AVM Tester
 
-This Go module provides testing capabilities for [Azure Verified Modules (AVM)](https://aka.ms/avm) for Terraform. It is designed to be used from teh Azure organisation via GitHub Actions.
+This Go module provides testing capabilities for [Azure Verified Modules (AVM)](https://aka.ms/avm) for Terraform. It is designed to be used from the Azure organisation via GitHub Actions.
 
 ## Purpose
 
