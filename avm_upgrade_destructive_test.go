@@ -11,7 +11,7 @@ import (
     "github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TestUpgradeExample(t *testing.T) {
+func TestDestructiveUpgradeExample(t *testing.T) {
     // Read environment variables for module path and example name
     modulePath := os.Getenv("AVM_MOD_PATH")
     if modulePath == "" {
@@ -68,7 +68,7 @@ func TestUpgradeExample(t *testing.T) {
     // Get the current major version from the environment
     currentMajorVerStr := os.Getenv("CURRENT_MAJOR_VERSION")
     if currentMajorVerStr == "" {
-        t.Fatalf("Cannot read CURRENT_MAJOR_VERSION, you must set it to the previous major version (e.g., '1').")
+        t.Fatalf("Cannot read CURRENT_MAJOR_VERSION, you must set it to the major version you want to test against (e.g., '1').")
     }
     currentMajorVer, err := strconv.Atoi(currentMajorVerStr)
     if err != nil {
@@ -77,7 +77,7 @@ func TestUpgradeExample(t *testing.T) {
 
     // Run the upgrade test
     t.Run(example, func(t *testing.T) {
-        terraform_module_test_helper.ModuleUpgradeTest(
+        terraform_module_test_helper.ModuleUpgradeDestructiveTest(
             t,
             githubOrg,
             githubRepo,
@@ -85,8 +85,6 @@ func TestUpgradeExample(t *testing.T) {
             modulePath,
             opts,
             currentMajorVer,
-            true, // allow testing on v0 modules
-            true, // allow logs to be streamed rather than buffered in memory
         )
     })
 }

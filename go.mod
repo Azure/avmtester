@@ -143,4 +143,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace github.com/Azure/terraform-module-test-helper => github.com/kewalaka/terraform-module-test-helper v0.32.1-0.20250416060108-142088c891ed
+replace github.com/Azure/terraform-module-test-helper => github.com/kewalaka/terraform-module-test-helper v0.32.1-0.20250417230611-701f7641c30e
