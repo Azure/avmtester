@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/Azure/terraform-module-test-helper v0.32.0
-	github.com/gruntwork-io/terratest v0.49.0
+	github.com/gruntwork-io/terratest v0.50.0
 )
 
 require (
